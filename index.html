@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Down2Chill – Spontaneous Real-Life Connections</title>
+  <!-- **Viewport Meta Tag for Responsive Design and Preventing Zoom** -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <style>
+    /* Reset & Basic Setup */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Montserrat', sans-serif;
+      color: #ffffff;
+      background: radial-gradient(100% 100% at 50% 0%, #7B61FF 0%, #4F46E5 100%);
+      scroll-behavior: smooth;
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+      overscroll-behavior: none;
+    }
+    a { color: #ffffff; text-decoration: none; cursor: pointer; }
+    h1, h2, h3 { margin-bottom: 1rem; font-weight: 700; }
+    p { line-height: 1.6; margin-bottom: 1rem; }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 0;
+    }
+    .text-center { text-align: center; }
+    .flex {
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .mt-2 { margin-top: 2rem; }
+    .mt-4 { margin-top: 4rem; }
+    .mb-2 { margin-bottom: 2rem; }
+    .mb-4 { margin-bottom: 4rem; }
+    /* NAVBAR */
+    .navbar {
+      width: 100%;
+      position: fixed;
+      top: env(safe-area-inset-top);
+      left: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 1rem 0;
+      display: flex;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .navbar-content {
+      display: flex;
+      width: 90%;
+      max-width: 1200px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-left { font-size: 1.5rem; font-weight: 700; }
+    .nav-links a {
+      margin: 0 0.5rem;
+      font-weight: 500;
+      transition: opacity 0.2s;
+      padding: 0.5rem 0;
+    }
+    .nav-links a:hover { opacity: 0.8; }
+    .nav-links a.contact-link { padding-right: 120px; }
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: #fff;
+      color: #4F46E5;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: background 0.3s ease;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .btn:hover { background: rgba(255, 255, 255, 0.8); }
+    /* HERO SECTION */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      padding-top: 80px;
+    }
+    .hero-content { flex-wrap: wrap; gap: 2rem; }
+    .hero-text {
+      flex: 1 1 300px;
+      margin-right: 2rem;
+      max-width: 600px;
+      position: relative;
+      z-index: 1;
+      text-align: left;
+    }
+    .hero-text h1 { font-size: 3rem; margin-bottom: 1rem; }
+    .hero-text p {
+      font-size: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero-text .additional-text {
+      font-size: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero-image {
+      flex: 1 1 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-image video {
+      width: 80%;
+      max-width: 400px;
+      border: none;
+      border-radius: 10px;
+      height: auto;
+      pointer-events: auto;
+      user-select: none;
+    }
+    .restart-sound-btn { margin-top: 1rem; }
+    /* SOCIAL-PROOF / VALIDATION SECTION */
+    .social-proof-wrap { margin-top: 4rem; }
+    .partner-logos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    .partner-logos img {
+      width: 100px;
+      max-width: 120px;
+      opacity: 0.9;
+      transition: opacity 0.2s;
+    }
+    .partner-logos img:hover { opacity: 1; }
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .testimonial-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 1rem;
+    }
+    .testimonial-card p { font-size: 0.95rem; }
+    .testimonial-card .name {
+      margin-top: 1rem;
+      font-weight: 700;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+    /* SECTION TITLES */
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    /* THE VISION SECTION */
+    .vision-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 0rem;
+    }
+    .vision-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 2rem;
+      text-align: center;
+    }
+    .vision-card h3 { font-size: 1.25rem; margin-bottom: 1rem; }
+    /* LIFE WITHOUT / WITH SECTION */
+    .life-compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .life-compare-column {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 2rem;
+      text-align: center;
+    }
+    .life-compare-column h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+    .life-compare-column img {
+      max-width: 100%;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+    }
+    /* USER FLOW SECTION */
+    .user-flow { margin-top: 2rem; text-align: center; }
+    .flow-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .flow-step {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1.5rem;
+      border-radius: 10px;
+    }
+    .flow-step img {
+      width: 100%;
+      max-width: 200px;
+      margin-bottom: 1rem;
+      pointer-events: none;
+    }
+    /* PROBLEM & SOLUTION SECTION */
+    .problem-solution { margin-top: 0rem; }
+    .problem-solution .cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    .ps-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 1.5rem;
+      max-width: 300px;
+      text-align: center;
+    }
+    .ps-card h3 { margin-bottom: 1rem; font-size: 1.25rem; }
+    /* THE D2C ALGORITHM SECTION */
+    .algorithm { margin-top: 3rem; text-align: center; }
+    .algo-content {
+      margin-top: 0rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .triangle-placeholder {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      padding: 1rem;
+      margin: 2rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .triangle-placeholder img {
+      width: 540px;
+      height: auto;
+      object-fit: contain;
+    }
+    @media (max-width: 1200px) {
+      .triangle-placeholder img { width: 450px; }
+    }
+    @media (max-width: 768px) {
+      .triangle-placeholder img { width: 300px; }
+      .algo-content { padding: 1rem; }
+      .navbar { display: none; }
+      .hero { padding-top: 40px; }
+      .hero-text { text-align: center; margin-right: 0; }
+      .hero-text h1 { font-size: 2rem; }
+      .hero-text p { font-size: 1rem; margin-bottom: 1rem; }
+      .hero-text .additional-text { font-size: 1.25rem; margin-bottom: 1.5rem; }
+      .hero-image { width: 100%; justify-content: center; align-items: center; }
+      .life-compare { grid-template-columns: 1fr; }
+      .hero-image video { width: 70%; height: auto; }
+      .btn { padding: 0.75rem 1.5rem; font-size: 1rem; }
+      .testimonial-card { padding: 0.75rem; }
+      .vision-card { padding: 1.5rem; }
+      .flow-step { padding: 1rem; }
+      .ps-card { padding: 1rem; }
+      .mailing-list input[type="email"] {
+        width: 100%;
+        max-width: 100%;
+        font-size: 16px;
+      }
+      .mailing-list button {
+        width: 50%;
+        max-width: 50%;
+        margin: 0.5rem auto 0;
+        display: block;
+      }
+      .partner-logos img { width: 80px; max-width: 100px; }
+      .app-badges img { width: 120px; max-width: 150px; }
+    }
+    /* GET THE APP SECTION */
+    .get-app { margin-top: 3rem; text-align: center; }
+    .app-badges {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .app-badges img {
+      width: 150px;
+      max-width: 200px;
+      cursor: pointer;
+    }
+    /* FAQ SECTION */
+    .faq { margin-top: 3rem; }
+    .faq h3 { text-align: center; margin-bottom: 2rem; }
+    .faq-item {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .faq-item h4 { font-weight: 600; margin-bottom: 0.5rem; }
+    .faq-item p { margin-left: 1rem; margin-bottom: 0.5rem; }
+    /* ROADMAP SECTION */
+    .roadmap { margin-top: 3rem; text-align: center; }
+    .roadmap-content { margin-top: 2rem; }
+    /* EMAIL CAPTURE / MAILING LIST */
+    .mailing-list { margin-top: 2rem; text-align: center; }
+    .mailing-list form {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .mailing-list input[type="email"] {
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      width: 280px;
+      max-width: 100%;
+      font-size: 16px;
+    }
+    .mailing-list button {
+      padding: 0.75rem 2rem;
+      background: #fff;
+      color: #4F46E5;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+      transition: background 0.3s ease;
+      font-size: 16px;
+    }
+    .mailing-list button:hover { background: rgba(255, 255, 255, 0.8); }
+    /* FOOTER */
+    .footer {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      opacity: 0.8;
+      padding-bottom: 2rem;
+    }
+    /* Adjust Home section for fixed navbar */
+    #home { scroll-margin-top: 80px; }
+	#algorithm { scroll-margin-top: 40px; }
+    /* Adjust main content padding to account for fixed navbar */
+    #main-content { padding-top: 0px; }
+    /* NEW: Scrollable container for main content */
+    #scroll-container {
+      height: 100vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+  </style>
+  <!-- Include jQuery from CDN -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- JavaScript to Disable Right-Click, F12, Ctrl+C, Ctrl+U -->
+  <script>
+    document.addEventListener('contextmenu', function(event) {
+      event.preventDefault();
+    });
+    document.onkeydown = function (event) {
+      event = event || window.event;
+      var key = event.keyCode || event.which;
+      if (key === 123) { event.preventDefault(); return false; }
+      if (event.ctrlKey && event.shiftKey && key === 73) { event.preventDefault(); return false; }
+      if (event.ctrlKey && event.shiftKey && key === 74) { event.preventDefault(); return false; }
+      if (event.ctrlKey && key === 85) { event.preventDefault(); return false; }
+    };
+    $(document).ready(function(){
+      $(document).keydown(function(event) {
+        var pressedKey = String.fromCharCode(event.keyCode).toLowerCase();
+        if (event.ctrlKey && (pressedKey === "c" || pressedKey === "u")) {
+          alert('Sorry, This Functionality Has Been Disabled!');
+          event.preventDefault();
+          return false;
+        }
+      });
+      $(document).on('copy paste cut', function(event) {
+        event.preventDefault();
+        alert('Sorry, This Functionality Has Been Disabled!');
+      });
+    });
+  </script>
+</head>
+<body>
+  <!-- NEW: Scrollable Container -->
+  <div id="scroll-container">
+    <!-- MAIN CONTENT -->
+    <div id="main-content">
+      <!-- NAVBAR -->
+      <header class="navbar">
+        <div class="navbar-content">
+          <div class="nav-left">
+            <a href="#home" aria-label="Down2Chill Homepage">Down2Chill</a>
+          </div>
+          <nav class="nav-right nav-links" aria-label="Main navigation">
+            <a href="#home">Home</a>
+            <a href="#features">Features</a>
+            <a href="#algorithm">Algorithm</a>
+            <a href="#contact" class="contact-link">Contact</a>
+          </nav>
+        </div>
+      </header>
+      <!-- 1. Home SECTION (#home) -->
+      <section id="home" class="hero container">
+        <div class="hero-content flex">
+          <div class="hero-text">
+            <h1>Down2Chill</h1>
+            <p class="additional-text">Always stay in the loop with your available friends in real time. Revolutionary approach shows you who's free and for what, specifically with YOU, and right now!</p>
+            <p>Empowering Spontaneous Real-Life Connections<br/>With One Click</p>
+            <a href="https://apps.apple.com/us/app/down2chill/id6444803295" target="_blank" class="btn" style="display:inline-block;width:150px;text-align:center;margin-right:1rem;margin-bottom:1rem;">iPhone</a>
+			<a href="https://play.google.com/store/apps/details?id=com.down2chill.v3&pcampaignid=web_share" target="_blank" class="btn" style="display:inline-block;width:150px;text-align:center;margin-bottom:1rem;">Android</a>
+			
+
+          </div>
+          <div class="hero-image">
+            <video 
+              src="https://github.com/down2chill/view/raw/ce365982d628eb4bd401a951c60e7702dce1c649/i.mp4" 
+              autoplay
+              muted
+              playsinline
+              controlsList="nodownload"
+              preload="auto"
+              loop
+              oncontextmenu="return false;">
+              Your browser does not support the video tag.
+            </video>
+            <div class="text-center restart-sound-btn">
+              <button class="btn" id="restart-sound-btn">Restart + Sound</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- 3. (FEATURES) (#features) -->
+      <section id="features" class="container">
+        <h2 class="section-title"><br>The Vision: An App Designed For Optimal User Connectivity</h2>
+        <p class="text-center">Down2Chill: Real-time Connections, Effortless Planning, Seamless Socializing.</p>
+        <div class="vision-grid">
+          <div class="vision-card">
+            <h3>Instantly See Who’s Free &amp; For What</h3>
+            <p>List of free friends and their current moods.</p>
+          </div>
+          <div class="vision-card">
+            <h3>All Social Activities in 9 Buttons</h3>
+            <p>Custom options for any activity you can imagine.</p>
+          </div>
+          <div class="vision-card">
+            <h3>Direct Communication</h3>
+            <p>Instant messaging, media sharing, location services built-in.</p>
+          </div>
+          <div class="vision-card">
+            <h3>Personalized Experience</h3>
+            <p>Unique QR codes, secure logins, easy profile sharing.</p>
+          </div>
+          <div class="vision-card">
+            <h3>Group Features &amp; Linking</h3>
+            <p>Create/join groups, manage visibility, organize meetups.</p>
+          </div>
+          <div class="vision-card">
+            <h3>Group Chat History</h3>
+            <p><br>View ongoing discussions, seamlessly integrate events.</p>
+          </div>
+          <div class="vision-card">
+            <h3>Simplified Planning</h3>
+            <p><br>Notify friends with one click, see mood &amp; timing.</p>
+          </div>
+          <div class="vision-card">
+            <h3>Custom Friend Management</h3>
+            <p>Tailor group names, set visibility, sort and filter.</p>
+          </div>
+        </div>
+      </section>
+      <!-- 4. HOW IT WORKS -->
+      <section class="container mt-4 user-flow" style="text-align:center; margin-top:2rem;">
+		  <h2 class="section-title" style="font-size:2rem; margin-bottom:0.5rem;">How It Works</h2>
+		  <p style="margin-bottom:2rem;">Going from “I’m free” to “Let’s hang out” in four simple steps!</p>
+
+		  <div class="flow-steps" style="display:flex; flex-wrap:wrap; justify-content:center; gap:2rem;">
+			
+			<!-- Step 1 -->
+			<div class="flow-step" style="width:220px; text-align:center;">
+			  <img src="https://raw.githubusercontent.com/down2chill/view/43f0a5be9f4c8967d20a951ba78c75817eca08c1/screen1.png" alt="Home"
+				   style="width:100%; height:auto; display:block; border-radius:20px; border:3px solid #000;">
+			  <h3 style="margin-top:0.75rem;">Home</h3>
+			  <p style="margin:0;">Pick a mood &amp; go online.</p>
+			</div>
+
+			<!-- Step 2 -->
+			<div class="flow-step" style="width:220px; text-align:center;">
+			  <img src="https://raw.githubusercontent.com/down2chill/view/43f0a5be9f4c8967d20a951ba78c75817eca08c1/screen2.png" alt="Friends"
+				   style="width:100%; height:auto; display:block; border-radius:20px; border:3px solid #000;">
+			  <h3 style="margin-top:0.75rem;">Friends Page</h3>
+			  <p style="margin:0;">See who’s chilling &amp; how.</p>
+			</div>
+
+			<!-- Step 3 -->
+			<div class="flow-step" style="width:220px; text-align:center;">
+			  <img src="https://raw.githubusercontent.com/down2chill/view/43f0a5be9f4c8967d20a951ba78c75817eca08c1/screen3.png" alt="Privacy"
+				   style="width:100%; height:auto; display:block; border-radius:20px; border:3px solid #000;">
+			  <h3 style="margin-top:0.75rem;">Privacy &amp; Management</h3>
+			  <p style="margin:0;">Control who can see you.</p>
+			</div>
+
+			<!-- Step 4 -->
+			<div class="flow-step" style="width:220px; text-align:center;">
+			  <img src="https://raw.githubusercontent.com/down2chill/view/43f0a5be9f4c8967d20a951ba78c75817eca08c1/screen4.png" alt="Map"
+				   style="width:100%; height:auto; display:block; border-radius:20px; border:3px solid #000;">
+			  <h3 style="margin-top:0.75rem;">Real-Time View</h3>
+			  <p style="margin:0;">Map &amp; friend street view.</p>
+			</div>
+
+		  </div>
+	</section>
+
+      <!-- 6. THE D2C ALGORITHM SECTION (#algorithm) -->
+      <section id="algorithm" class="container algorithm">
+        <h2 class="section-title">The D2C Algorithm</h2>
+        <p>The Backbone Social Meeting Triangle</p>
+        <div class="algo-content">
+          <div class="triangle-placeholder">
+            <img src="https://raw.githubusercontent.com/down2chill/view/refs/heads/main/triangle.png" alt="Algorithm Triangle Diagram" />
+          </div>
+          <p><strong>Key Components:</strong></p>
+          <ul style="list-style: none; padding-left: 0;">
+            <li>• <strong>Availability:</strong> Instantly see which friends are free.</li>
+            <li>• <strong>Activity Preference:</strong> Match based on current moods and interests.</li>
+            <li>• <strong>Social Compatibility:</strong> Connect with friends you enjoy spending time with.</li>
+          </ul>
+          <p><br>
+            Our algorithm is designed to seamlessly connect you with friends who are available, share similar moods, and have high likeability with you.
+          </p>
+        </div>
+      </section>
+      <!-- 5. PROBLEM & SOLUTION -->
+      <section id="problem" class="container problem-solution">
+        <h2 class="section-title">Problem &amp; Solution</h2>
+        <div class="cards">
+          <div class="ps-card">
+            <h3>The Problem</h3>
+            <p>“Everyone is hanging out less.” Social anxiety, time-stealing feeds, and fewer face-to-face interactions.</p>
+          </div>
+          <div class="ps-card">
+            <h3>Our Approach</h3>
+            <p>"Selective Availability Signal"<br> You tap 1 button, we'll maximize your social life!</p>
+          </div>
+        </div>
+      </section>
+      <!-- 7. LIFE WITHOUT / WITH D2C -->
+      <section id="difference" class="container mt-2">
+        <h2 class="section-title">The Difference</h2>
+        <div class="life-compare">
+          <div class="life-compare-column">
+            <h3>Life Without Down2Chill</h3>
+            <img src="https://raw.githubusercontent.com/down2chill/view/refs/heads/main/before.png" alt="Sad Face" />
+            <p>• Sit alone &amp; wait for friends to hit you up</p>
+            <p>• Post on socials “I’m free” (feel awkward or needy)</p>
+            <p>• Start to call/text friends one by one</p>
+          </div>
+          <div class="life-compare-column">
+            <h3>Life With Down2Chill</h3>
+            <img src="https://raw.githubusercontent.com/down2chill/view/refs/heads/main/after.png" alt="Happy Face" />
+            <p>• Open Down2Chill &amp; Go Online</p>
+            <p>• A friend sees you’re free &amp; comes over!</p>
+            <p>• You see all currently free friends, pick who to chill with!</p>
+          </div>
+        </div>
+      </section>
+      <!-- 9. FREQUENTLY ASKED QUESTIONS (#faq) -->
+      <section id="faq" class="container faq">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-item">
+          <h4>How do I sign up?</h4>
+          <p>Simply download the app from the App Store or Google Play and follow the on-screen instructions to create your account.</p>
+        </div>
+        <div class="faq-item">
+          <h4>How do I add friends?</h4>
+          <p>You can add friends by importing your contacts, selecting your preferred connections, and managing your friend list at any time through the app.</p>
+        </div>
+        <div class="faq-item">
+          <h4>How secure is my data?</h4>
+          <p>We prioritize your privacy and security. All data is encrypted and securely stored to protect your information.</p>
+        </div>
+      </section>
+   <!-- 10. STAY IN THE LOOP (#mailing-list) -->
+<section id="mailing-list" class="container mailing-list">
+  <h2 class="section-title">Stay in the Loop</h2>
+  <p>Reach us at <a href="mailto:team@down2chill.com"><strong><u>team@down2chill.com</u></strong></a></p>
+  <p>— or —</p>
+  <p>Sign up for our mailing list to get exclusive updates, invites, and more.</p>
+  <form id="emailForm">
+    <input type="email" name="email" placeholder="Your Email Address" required autocapitalize="none" />
+    <button type="submit">Join Our List</button>
+  </form>
+  <p id="status"></p>
+</section>
+
+
+
+<!-- 12. FOOTER (#contact) -->
+<footer id="contact" class="footer container">
+  <p>&copy; <span id="year"></span> Down2Chill. All rights reserved.</p>
+  <br>
+</footer>
+
+<!-- Smooth scrolling & video logic (unchanged) -->
+<script>
+  document.getElementById('emailForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+    const status = document.getElementById('status');
+    const email = form.querySelector('input[name="email"]').value;
+	status.textContent = `Thank you ${email}!`;
+    status.className = 'loading';
+    fetch('https://script.google.com/macros/s/AKfycbx6ohJR6ATraA6WwFguYJOaWKwlDNWnV27sli2TM763_qXoM-EagM3L1aQjOT19eYV7-w/exec', {
+      method: 'POST',
+      body: data
+    })
+    .then(response => response.text())
+    .then(text => {
+      if (text === 'success') {
+        status.textContent = 'We will keep you updated!';
+        status.className = 'success';
+      } else {
+        status.textContent = 'Something went wrong.';
+        status.className = 'error';
+      }
+      form.reset();
+    })
+    .catch(error => {
+      status.textContent = 'Error: ' + error;
+      status.className = 'error';
+    });
+  });
+  document.querySelectorAll('.nav-links a[href="#home"]').forEach(function(link) {
+    link.addEventListener('click', function(event) {
+      event.preventDefault();
+      document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+  document.querySelectorAll('.nav-links a[href="#features"]').forEach(function(link) {
+    link.addEventListener('click', function(event) {
+      event.preventDefault();
+      document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+  document.querySelectorAll('.nav-links a[href="#algorithm"]').forEach(function(link) {
+    link.addEventListener('click', function(event) {
+      event.preventDefault();
+      document.getElementById('algorithm').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+  document.querySelectorAll('.nav-links a[href="#contact"]').forEach(function(link) {
+    link.addEventListener('click', function(event) {
+      event.preventDefault();
+      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+  document.getElementById('restart-sound-btn').addEventListener('click', function() {
+    const video = document.querySelector('.hero-image video');
+    video.currentTime = 0;
+    video.muted = false;
+    video.play();
+  });
+  document.querySelector('.hero-image video').addEventListener('click', function() {
+    if (this.hasAttribute('controls')) {
+      this.removeAttribute('controls');
+    } else {
+      this.setAttribute('controls', 'controls');
+    }
+  });
+  document.querySelector('.hero-image video').addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+  });
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("year").textContent = new Date().getFullYear();
+  });
+</script>
+</body>
+</html>`;
+
