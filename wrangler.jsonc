@@ -4,5 +4,6 @@
   "compatibility_date": "2026-07-08",
   "compatibility_flags": ["nodejs_compat"],
   "observability": { "enabled": true },
-  "assets": { "directory": "." }
+  "assets": { "directory": "." },
+  "vars": { "GA_MEASUREMENT_ID": "G-QT7FLMV" }
 }
